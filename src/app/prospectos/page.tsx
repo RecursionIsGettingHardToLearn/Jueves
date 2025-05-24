@@ -34,7 +34,7 @@ export default function ProspectosPage() {
           </div>
 
           <nav className="flex flex-1 items-center justify-center gap-2">
-           <NavButton iconSrc="/home-icon.png" label="Inicio" href="/" active />
+           <NavButton iconSrc="/home-icon.png" label="Inicio" href="/"  />
             <NavButton iconSrc="/anadir-amigo-icon.png" label="Prospectos" href="/prospectos" active={true} />
             <NavButton iconSrc="/correo-electronico-icon.png" label="Mensajería" href="/mensajeria" />
             <NavButton iconSrc="/actividades-icon.png" label="Actividades" href="/actividades" />
