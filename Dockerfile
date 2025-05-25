@@ -1,43 +1,32 @@
-# Etapa base con Node.js 18 en Alpine
-FROM node:18-alpine AS base
+# Etapa 1: construir la aplicación
+FROM node:18-alpine AS builder
 
-# Etapa de dependencias
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json ./ 
-#RUN npm ci
+
+# Copiar e instalar dependencias
+COPY package.json package-lock.json* ./
 RUN npm install
 
-# Etapa de build
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copiar todo el código fuente
 COPY . .
-ENV NEXT_TELEMETRY_DISABLED 1
+
+# Construir la app para producción
 RUN npm run build
 
-# Etapa de producción
-FROM base AS runner
+# Etapa 2: servir la aplicación optimizada
+FROM node:18-alpine AS runner
+
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Crear usuario seguro
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
-
-# Copiar artefactos necesarios
+# Copiar archivos necesarios desde la etapa anterior
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/.next .next
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
 
-# Establecer usuario seguro
-USER nextjs
+# Cloud Run espera que escuchemos en el puerto especificado por la variable de entorno $PORT
+ENV PORT=8080
+EXPOSE 8080
 
-# Configurar puerto y comando de inicio
-EXPOSE 3000
-ENV PORT 3000
+# Iniciar la aplicación Next.js en el puerto proporcionado
 CMD ["npm", "start"]
