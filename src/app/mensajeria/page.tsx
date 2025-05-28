@@ -3,7 +3,7 @@
 import { ChevronDown, } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-
+//bg-[#F3F3FF]
 export default function MensajeriaPage() {
   const [selectedPlatform, setSelectedPlatform] = useState("Whatsapp")
   const [messageText, setMessageText] = useState(
@@ -15,7 +15,7 @@ export default function MensajeriaPage() {
 
 
 
-      <main className="container flex flex-col md:flex-row h-[calc(100vh-64px)] gap-4 pt-8 bg-[#F3F3FF]">
+     <main className="w-full px-4 flex flex-col md:flex-row h-[calc(100vh-64px)] gap-4 pt-8 bg-[#F3F3FF]">
         {/* Left Panel - Contact Info */}
         <div className="w-1/3 space-y-4">
           <div className="rounded-lg  p-4">
