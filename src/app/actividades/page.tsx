@@ -4,6 +4,19 @@ import { useState, useEffect } from "react";
 import Image from 'next/image'
 import NextLink from "next/link"
 
+interface Activity {
+  fecha: string
+  hora: string
+  actividad: string
+  canal: string
+  prospecto: string
+  resultado: string
+  recomendacion: string
+  // estos dos son opcionales — sólo si los usas
+  resultadoCompleto?: string
+  recomendacionCompleta?: string
+}
+
 // Activity Data
 const prospectActivities = [
   {
@@ -349,7 +362,13 @@ export default function BitacoraPage() {
 
 
 
-function ActivityDetailModal({ activity, onClose }: { activity: any; onClose: () => void }) {
+function ActivityDetailModal({
+  activity,
+  onClose,
+}: {
+  activity: Activity
+  onClose: () => void
+}) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-[#5A586E]/50 z-40" onClick={onClose} />
