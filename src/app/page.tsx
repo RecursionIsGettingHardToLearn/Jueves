@@ -173,7 +173,9 @@ function TaskModal({ onClose, onSave }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Overlay  fixed inset-0 bg-[#5A586E]/50 z-40*/}
-      <div className="fixed inset-0 bg-[#5A586E]/50 z-40" onClick={onClose} />
+    <div className="fixed inset-0 bg-black opacity-50"></div>
+
+
 
       {/* Modal */}
       <div className="relative z-10 w-full max-w-md rounded-lg bg-[#C8C8E6] p-6 mx-4">
@@ -208,7 +210,7 @@ function TaskModal({ onClose, onSave }) {
             <select
               value={formData.tipoActividad}
               onChange={(e) => handleInputChange("tipoActividad", e.target.value)}
-              className="w-full appearance-none rounded-md border-2 border-[#4A4A68] bg-[#C8C8E6] px-4 py-3 pr-10 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full  rounded-md border-2 border-[#4A4A68] bg-[#C8C8E6] px-4 py-3 pr-10 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             >
               <option value="">Tipo de actividad</option>
